@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package C12S.AgentQueue;
+
+option go_package = "../api";
+
+service AgentQueue {
+  rpc DeseminateConfig(DeseminateConfigRequest) returns (DeseminateConfigResponse);
+  rpc JoinCluster(JoinClusterRequest) returns (JoinClusterResponse);
+  rpc DisseminateAppConfig(DeseminateConfigRequest) returns (DeseminateConfigResponse);
+}
+
+message DeseminateConfigRequest {
+  string node_id = 1;
+  bytes config = 2;
+  string webhook = 3;
+}
+
+message DeseminateConfigResponse {}
+
+message JoinClusterRequest {
+  string node_id = 1;
+  string cluster_id = 2;
+  string join_address = 3;
+}
+
+message JoinClusterResponse {}

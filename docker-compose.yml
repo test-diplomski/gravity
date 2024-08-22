@@ -1,0 +1,27 @@
+version: '3'
+services:
+  queue:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        - GRPC_PORT=50052
+    image: agent_queue
+    container_name: agent_queue
+    restart: always
+    ports:
+      - 50052:50052
+    environment:
+      GRPC_PORT: "50052"
+      NATS_CONN_ADDRESS: "nats:4222"
+    depends_on: 
+      - nats
+
+  nats:
+    image: nats:latest
+    volumes:
+      - ./nats.conf:/etc/nats/nats-server.conf
+    ports:
+      - "4222:4222"
+      - "8222:8222"
+
